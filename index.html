@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#071326">
+  <title>StudyHub — Learn • Track • Grow</title>
+  <meta name="description" content="A smooth, responsive vanilla HTML CSS JavaScript study dashboard.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+  <div class="cursor-glow"></div>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark"><span>✦</span></div>
+        <div><strong>Study<span>Hub</span></strong><small>Learn · Track · Grow</small></div>
+      </div>
+
+      <button class="mobile-close" id="mobileClose" aria-label="Close menu">×</button>
+
+      <nav class="nav-list" aria-label="Main navigation">
+        <button class="nav-item active" data-view="dashboard"><span>⌂</span> Dashboard</button>
+        <button class="nav-item" data-view="tasks"><span>✓</span> My Tasks</button>
+        <button class="nav-item" data-view="courses"><span>◈</span> Courses</button>
+        <button class="nav-item" data-view="notes"><span>▤</span> Notes</button>
+        <button class="nav-item" data-view="calendar"><span>□</span> Calendar</button>
+        <button class="nav-item" data-view="pomodoro"><span>◷</span> Pomodoro</button>
+        <button class="nav-item" data-view="settings"><span>⚙</span> Settings</button>
+      </nav>
+
+      <div class="sidebar-quote">
+        <div class="mini-stars">✦ · ✧ · ✦</div>
+        <p>Small steps every day lead to big results.</p>
+        <button class="ghost-btn" data-view="tasks">Keep going <span>→</span></button>
+      </div>
+
+      <div class="sidebar-footer">© <span id="year"></span> StudyHub</div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+        <div class="search-wrap">
+          <span>⌕</span>
+          <input id="globalSearch" type="search" placeholder="Search tasks, courses, notes..." autocomplete="off">
+          <kbd>Ctrl K</kbd>
+        </div>
+        <div class="top-actions">
+          <button class="icon-btn" id="themeBtn" title="Toggle theme">☾</button>
+          <button class="icon-btn notification-btn" id="notificationBtn" title="Notifications">♧<i></i></button>
+          <button class="icon-btn" id="fullscreenBtn" title="Fullscreen">⛶</button>
+          <button class="profile">
+            <span class="avatar">A</span>
+            <span class="profile-copy"><strong>Anus</strong><small>Student · Dreamer</small></span>
+            <span>⌄</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="page">
+        <section class="view active" id="view-dashboard">
+          <div class="hero reveal">
+            <div class="hero-art"></div>
+            <div class="hero-copy">
+              <span class="eyebrow">Good afternoon, Anus 👋</span>
+              <h1>Keep <em>going!</em></h1>
+              <p>Your future self will thank you for what you do today.</p>
+              <div class="hero-pills">
+                <button class="pill" data-view="courses">Learn</button>
+                <button class="pill" data-view="tasks">Build</button>
+                <button class="pill accent" data-view="notes">Achieve</button>
+              </div>
+            </div>
+            <div class="hero-progress">
+              <span>Overall progress</span>
+              <strong id="overallPercent">62%</strong>
+              <div class="progress"><i id="overallBar" style="width:62%"></i></div>
+              <small>Progress, not perfection.</small>
+            </div>
+          </div>
+
+          <div class="stats-grid reveal">
+            <article class="stat-card cyan"><span class="stat-icon">✓</span><div><small>Total Tasks</small><strong id="totalTasks">8</strong><b>+ <span id="todayAdded">2</span> today</b></div></article>
+            <article class="stat-card green"><span class="stat-icon">✓</span><div><small>Completed</small><strong id="completedTasks">5</strong><b>+ 3 today</b></div></article>
+            <article class="stat-card blue"><span class="stat-icon">◷</span><div><small>In Progress</small><strong id="progressTasks">2</strong><b>+ 0 today</b></div></article>
+            <article class="stat-card pink"><span class="stat-icon">🔥</span><div><small>Streak</small><strong>7 days</strong><b>Keep it up!</b></div></article>
+          </div>
+
+          <div class="dashboard-grid">
+            <div class="content-col">
+              <article class="panel reveal">
+                <div class="panel-head">
+                  <div><span class="section-icon">☷</span><div><h2>Today's Tasks</h2><small>Turn small actions into momentum.</small></div></div>
+                  <button class="primary-btn" id="addTaskBtn">＋ Add Task</button>
+                </div>
+                <div class="task-list" id="taskList"></div>
+                <button class="link-btn" data-view="tasks">View all tasks →</button>
+              </article>
+
+              <article class="panel reveal">
+                <div class="panel-head"><div><span class="section-icon">◈</span><div><h2>My Courses</h2><small>Pick up where you left off.</small></div></div><button class="link-btn" data-view="courses">View all →</button></div>
+                <div class="course-grid" id="courseGrid"></div>
+              </article>
+
+              <div class="two-col">
+                <article class="panel reveal">
+                  <div class="panel-head compact"><h2>Recent Notes</h2><button class="link-btn" data-view="notes">View all →</button></div>
+                  <div id="recentNotes"></div>
+                </article>
+                <article class="panel reveal">
+                  <div class="panel-head compact"><h2>Quick Links</h2></div>
+                  <div class="quick-links">
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">JS Docs <span>↗</span></a>
+                    <a href="https://github.com/" target="_blank">GitHub <span>↗</span></a>
+                    <a href="https://stackoverflow.com/" target="_blank">Stack Overflow <span>↗</span></a>
+                    <a href="https://www.figma.com/" target="_blank">Figma <span>↗</span></a>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <div class="side-col">
+              <article class="panel timer-panel reveal">
+                <div class="panel-head compact"><h2>Pomodoro Timer</h2><button class="icon-btn small" data-view="pomodoro">⚙</button></div>
+                <div class="timer-ring" id="miniTimerRing"><div><strong id="miniTimer">25:00</strong><span>Focus time</span></div></div>
+                <div class="timer-controls"><button class="primary-btn" id="miniStart">▶</button><button class="icon-btn" id="miniReset">↻</button></div>
+                <div class="timer-presets"><button class="selected" data-minutes="25">25m<small>Focus</small></button><button data-minutes="5">5m<small>Break</small></button><button data-minutes="15">15m<small>Long break</small></button></div>
+              </article>
+
+              <article class="panel reveal">
+                <div class="panel-head compact"><h2>Quick Note</h2></div>
+                <textarea id="quickNote" placeholder="Write something..."></textarea>
+                <div class="note-actions"><span id="noteSaved"></span><button class="primary-btn" id="saveQuickNote">Save</button></div>
+              </article>
+
+              <article class="panel activity-panel reveal">
+                <div class="panel-head compact"><h2>Recent Activity</h2></div>
+                <div id="activityList"></div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="view" id="view-tasks">
+          <div class="view-heading"><div><span class="eyebrow">Productivity</span><h1>My Tasks</h1><p>Plan it. Do it. Check it off.</p></div><button class="primary-btn" id="addTaskBtn2">＋ Add Task</button></div>
+          <div class="toolbar"><div class="filter-group"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="active">Active</button><button class="filter" data-filter="completed">Completed</button></div><span id="taskCount"></span></div>
+          <div class="panel"><div class="task-list large" id="allTaskList"></div></div>
+        </section>
+
+        <section class="view" id="view-courses">
+          <div class="view-heading"><div><span class="eyebrow">Learning</span><h1>My Courses</h1><p>Build skills one focused session at a time.</p></div></div>
+          <div class="course-grid big" id="allCourseGrid"></div>
+        </section>
+
+        <section class="view" id="view-notes">
+          <div class="view-heading"><div><span class="eyebrow">Knowledge base</span><h1>Notes</h1><p>Capture ideas before they disappear.</p></div><button class="primary-btn" id="newNoteBtn">＋ New Note</button></div>
+          <div class="notes-layout"><div class="panel notes-list" id="notesList"></div><div class="panel editor"><input id="noteTitle" placeholder="Note title"><textarea id="noteBody" placeholder="Start writing..."></textarea><div class="editor-foot"><span id="editorStatus">No note selected</span><button class="primary-btn" id="saveNoteBtn">Save note</button></div></div></div>
+        </section>
+
+        <section class="view" id="view-calendar">
+          <div class="view-heading"><div><span class="eyebrow">Schedule</span><h1>Calendar</h1><p>Keep your learning rhythm visible.</p></div></div>
+          <div class="calendar-layout"><div class="panel calendar-panel"><div class="calendar-head"><button class="icon-btn" id="prevMonth">‹</button><h2 id="monthTitle"></h2><button class="icon-btn" id="nextMonth">›</button></div><div class="weekday"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div><div class="calendar-days" id="calendarDays"></div></div><div class="panel day-panel"><span class="eyebrow">Selected day</span><h2 id="selectedDate">Today</h2><div id="dayTasks"></div></div></div>
+        </section>
+
+        <section class="view" id="view-pomodoro">
+          <div class="view-heading"><div><span class="eyebrow">Deep work</span><h1>Pomodoro</h1><p>Protect your focus. Take deliberate breaks.</p></div></div>
+          <div class="focus-layout"><div class="panel focus-card"><div class="timer-ring huge" id="mainTimerRing"><div><strong id="mainTimer">25:00</strong><span id="timerLabel">Focus session</span></div></div><div class="focus-buttons"><button class="primary-btn big-btn" id="mainStart">Start focus</button><button class="secondary-btn" id="mainReset">Reset</button></div><div class="timer-presets big-presets"><button class="selected" data-main-minutes="25">25 min Focus</button><button data-main-minutes="5">5 min Break</button><button data-main-minutes="15">15 min Break</button></div></div><div class="panel"><h2>Focus tips</h2><div class="tip"><b>01</b><span>Choose one concrete task before starting.</span></div><div class="tip"><b>02</b><span>Put distracting tabs and notifications away.</span></div><div class="tip"><b>03</b><span>When the timer ends, actually take the break.</span></div></div></div>
+        </section>
+
+        <section class="view" id="view-settings">
+          <div class="view-heading"><div><span class="eyebrow">Personalize</span><h1>Settings</h1><p>Make StudyHub feel like yours.</p></div></div>
+          <div class="settings-grid"><div class="panel"><h2>Appearance</h2><div class="setting-row"><div><b>Dark mode</b><small>Switch between dark and light themes.</small></div><button class="switch active" id="settingsTheme"><i></i></button></div><div class="setting-row"><div><b>Motion</b><small>Keep the smooth UI animations enabled.</small></div><button class="switch active" id="motionSwitch"><i></i></button></div></div><div class="panel"><h2>Local data</h2><p class="muted">Tasks, notes and theme settings are stored in your browser using localStorage.</p><button class="danger-btn" id="clearData">Clear local data</button></div></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose">×</button>
+      <span class="eyebrow">New task</span>
+      <h2 id="modalTitle">Add a task</h2>
+      <form id="taskForm">
+        <label>Task name<input id="taskTitle" required maxlength="80" placeholder="e.g. Practice JavaScript functions"></label>
+        <div class="form-row"><label>Category<select id="taskCategory"><option>Study</option><option>Project</option><option>Reading</option><option>Work</option><option>Personal</option></select></label><label>Time<input id="taskTime" type="time" value="18:00"></label></div>
+        <label>Due date<input id="taskDate" type="date"></label>
+        <button class="primary-btn submit-btn" type="submit">Create task</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"><span>✓</span><p></p></div>
+  <div class="notification-pop" id="notificationPop"><strong>You're doing great.</strong><p>Keep your next task small and specific.</p></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
